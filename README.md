@@ -19,11 +19,15 @@ The `rubricscore` program takes an instructor-written rubric JSON file, and an
 XML file created automatically by googletest, awards points for the passed
 testsuites, and pretty-prints the grade breakdown and total.
 
+## Usage
+
 ```
 rubricscore usage:
 
     rubricscore <RUBRIC-JSON-PATH> <GTEST-XML-PATH>
 ```
+
+## Example
 
 There is a small sample, complete with starter code, unit test code,
 `Makefile`, and `rubric.json` in the `example` directory.
@@ -83,5 +87,11 @@ ProductNegative       0 /    3
 TOTAL =    6 /    9
 ===============================================================================
 
-~/rubricscore/example$ 
+~/rubricscore/example$
 ```
+
+## Dependencies
+
+`rubricscore`: C++11, Boost.PropertyTree, make
+
+The example assignment: C++17, g++, googletest
