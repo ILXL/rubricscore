@@ -26,7 +26,7 @@ class UnitTestJSON {
         void addFinalResult(int result, int max);
 
         // Generate the JSON file
-        void generateJSON();
+        void generateJSON(std::string filename);
 };
 
 // Add a test case to the JSON file
@@ -46,7 +46,7 @@ void UnitTestJSON::addFinalResult(int result, int max) {
 }
 
 // Generate the JSON file
-void UnitTestJSON::generateJSON() {
+void UnitTestJSON::generateJSON(std::string filename) {
     // Make sure we are not creating a empty JSON file
     assert(!this->root.empty() && !this->tests.empty());
 
@@ -54,5 +54,5 @@ void UnitTestJSON::generateJSON() {
     root.add_child("tests", this->tests);
 
     // Create the JSON file
-    write_json("resultOutput.json", root);
+    write_json(filename, root);
 }
