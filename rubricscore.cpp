@@ -21,6 +21,8 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
+#include "create_json.hpp"
+
 // Exception thrown when parsing JSON or XML fail.
 class parse_exception : public std::exception {
 private:
@@ -258,6 +260,11 @@ void print_score(const rubric_score& the_score) {
 
   assert(!the_score.empty());
 
+  // Create JSON file for results
+  UnitTestJSON resultJSON;
+
+  std::cout << "hello" << the_score.size() << std::endl;
+
   // horizontal rule
   static const auto line = std::string(79, '=');
 
@@ -281,6 +288,9 @@ void print_score(const rubric_score& the_score) {
               << " / "
               << std::setw(4) << score.possible_points()
               << std::endl;
+    
+    // Record test's name, points, and possible points to JSON file
+    resultJSON.addTest(score.item().name(), score.earned_points(), score.possible_points());
   }
 
   // add up the total score
@@ -299,6 +309,12 @@ void print_score(const rubric_score& the_score) {
             << std::endl;
 
   std::cout << line << std::endl << std::endl;
+
+  // Add final results and maximum possible points to JSON file
+  resultJSON.addFinalResult(total_earned_points, total_possible_points);
+
+  // Generate JSON file to local directory
+  resultJSON.generateJSON();
 }
 
 int main(int argc, char* argv[]) {

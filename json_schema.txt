@@ -1,0 +1,53 @@
+// JSON Schema
+{
+    "$schema": "http://json-schema.org/draft-07/schema#"
+    "title": "Unit Test Results",
+    "description": "JSON output from Kevin Wortman's unit tester",
+    "type": "object",
+    "properties": {
+        "tests": {
+            "discription": "Array of tests names and test results"
+            "type": "array",
+            "properties": {
+                "testName": {
+                    "type": "string"
+                },
+                
+                "testResults": {
+                    "type": "integer"
+                },
+
+                "testMaxPoints": {
+                    "type":  "integer"
+                }
+            }
+        },
+
+        "finalTotal": {
+            "type": "integer"
+        }
+
+        "maxPossiable": {
+            "type": "integer"
+        }
+    }
+}
+
+// Example
+{
+    "tests" : [
+        {
+            "testName": "add_two",
+            "testResult": 2,
+            "testMaxPoints": 10
+        },
+        {
+            "testName": "sub_two",
+            "testResults: 6,
+            "testMaxPoints": 10    
+        }
+    ],
+
+    "finalTotal": 8
+    "maxPossiable": 10
+}
