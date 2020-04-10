@@ -263,8 +263,6 @@ void print_score(const rubric_score& the_score) {
   // Create JSON file for results
   UnitTestJSON resultJSON;
 
-  std::cout << "hello" << the_score.size() << std::endl;
-
   // horizontal rule
   static const auto line = std::string(79, '=');
 
@@ -314,7 +312,8 @@ void print_score(const rubric_score& the_score) {
   resultJSON.addFinalResult(total_earned_points, total_possible_points);
 
   // Generate JSON file to local directory
-  resultJSON.generateJSON();
+  std::string filename = "resultOutput.json";
+  resultJSON.generateJSON(filename);
 }
 
 int main(int argc, char* argv[]) {
