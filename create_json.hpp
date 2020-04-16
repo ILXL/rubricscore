@@ -4,8 +4,7 @@
 //
 // Creates JSON file for unit tests output
 //
-// Author: Namanh Tran (namanhtran@csu.fullerton.edu)
-// Last Modified: Apirl 1, 2020
+// Last Modified: Apirl 16, 2020
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <boost/property_tree/ptree.hpp>
@@ -13,24 +12,24 @@
 using boost::property_tree::ptree;
 
 // Creates JSON file for unit test outputs
-class UnitTestJSON {
+class result_json_builder {
     private:
         ptree root;
         ptree tests;
     
     public:
         // Add a test case to the JSON file
-        void addTest(std::string testName, int result, int max);
+        void add_test(std::string testName, int result, int max);
 
         // Add the final total and max possiable points to the JSON file
-        void addFinalResult(int result, int max);
+        void add_final_result(int result, int max);
 
         // Generate the JSON file
-        void generateJSON(std::string filename);
+        void generate_json(std::string filename);
 };
 
 // Add a test case to the JSON file
-void UnitTestJSON::addTest(std::string testName, int result, int max) {
+void result_json_builder::add_test(std::string testName, int result, int max) {
     ptree testInfo;
     testInfo.put("testName", testName);
     testInfo.put("testResults", result);
@@ -40,13 +39,13 @@ void UnitTestJSON::addTest(std::string testName, int result, int max) {
 }
 
 // Add the final total and max possiable points to the JSON file
-void UnitTestJSON::addFinalResult(int result, int max) {
+void result_json_builder::add_final_result(int result, int max) {
     this->root.put("finalTotal", result);
     this->root.put("maxPossiable", max);
 }
 
 // Generate the JSON file
-void UnitTestJSON::generateJSON(std::string filename) {
+void result_json_builder::generate_json(std::string filename) {
     // Make sure we are not creating a empty JSON file
     assert(!this->root.empty() && !this->tests.empty());
 
