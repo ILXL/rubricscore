@@ -21,6 +21,11 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
+#include "create_json.hpp"
+
+// Default file name for json results
+const std::string RESULT_JSON_FILENAME("resultOutput.json");
+
 // Exception thrown when parsing JSON or XML fail.
 class parse_exception : public std::exception {
 private:
@@ -258,6 +263,9 @@ void print_score(const rubric_score& the_score) {
 
   assert(!the_score.empty());
 
+  // Create JSON file for results
+  result_json_builder result_json;
+
   // horizontal rule
   static const auto line = std::string(79, '=');
 
@@ -281,6 +289,9 @@ void print_score(const rubric_score& the_score) {
               << " / "
               << std::setw(4) << score.possible_points()
               << std::endl;
+    
+    // Record test's name, points, and possible points to JSON file
+    result_json.add_test(score.item().name(), score.earned_points(), score.possible_points());
   }
 
   // add up the total score
@@ -299,6 +310,13 @@ void print_score(const rubric_score& the_score) {
             << std::endl;
 
   std::cout << line << std::endl << std::endl;
+
+  // Add final results and maximum possible points to JSON file
+  result_json.add_final_result(total_earned_points, total_possible_points);
+
+  // Generate JSON file to local directory
+  std::string filename = "resultOutput.json";
+  result_json.generate_json(filename);
 }
 
 int main(int argc, char* argv[]) {
